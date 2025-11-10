@@ -6,31 +6,32 @@
  * @param {number} outputNumberSystem numerical system that the inputNumber is being converted into
  * @returns {string} containing number converted to output system or error message
  */
-export function main(inputNumber, inputNumberSystem, outputNumberSystem) { // 1.
-  let decimalNumber = 0; // 1.1.
+export function main(inputNumber, inputNumberSystem, outputNumberSystem) {
+  if (inputNumberSystem !== 2 || outputNumberSystem !== 10) {
+    // console.log('❌ Unsupported number system(s)!');
+    return '❌ Unsupported number system(s)!';
+  }
 
-  // 1.2.
-  if(/^[01]+$/.test(inputNumber)) { // 1.2.A.
-    // 1.2.A.1.
-    // 1.2.A.1.1.
-    const binaryNumber = inputNumber; // 1.2.A.1.1.1.
-    const reverseBinaryNumber = [...binaryNumber.toString()].reverse(); // 1.2.A.1.1.2.
+  let decimalNumber = 0;
 
-    for (let i = 0; i < reverseBinaryNumber.length; i++) { // 1.2.A.1.2.
-      // 1.2.A.1.2.1.
-      const bit = reverseBinaryNumber[i]; // 1.2.A.1.2.1.1.
+  if(/^[01]+$/.test(inputNumber)) {
+    const binaryNumber = inputNumber;
+    const reverseBinaryNumber = [...binaryNumber.toString()].reverse();
 
-      // 1.2.A.1.2.1.2.
-      if (bit === '1') { // 1.2.A.1.2.1.2.A.
-        decimalNumber += 2 ** i; // 1.2.A.1.2.1.2.A.1.
+    for (let i = 0; i < reverseBinaryNumber.length; i++) {
+      const bit = reverseBinaryNumber[i];
+
+      if (bit === '1') {
+        decimalNumber += 2 ** i;
       }
     }
 
-    // 1.2.A.1.3.
-    const dtoOut = decimalNumber.toString(); // 1.2.A.1.3.1.
-    return dtoOut; // 1.2.A.1.3.2.
-  } else { // 1.2.B.
-    return '❌ Enter a valid binary number!'; // 1.2.B.1.
+    const dtoOut = decimalNumber.toString();
+    // console.log(`✅ Decimal number: ${dtoOut}`);
+    return dtoOut;
+  } else {
+    // console.log('❌ Enter a valid binary number!');
+    return '❌ Enter a valid binary number!';
   }
 }
 
@@ -50,13 +51,21 @@ export function permittedOutputSystems() {
 	return [10];
 }
 
-/* console.log('TEST CASES:')
-console.log(main('0'));
-console.log(main('1'));
-console.log(main('101'));
-console.log(main('111010'));
-console.log(main('0001'));
-console.log(main('123'));
-console.log(main('-100'));
-console.log(main('a'));
-console.log(main('')); */
+/* TEST CASES: */
+// Binary numbers
+/* main('0', 2, 10);
+main('1', 2, 10);
+main('101', 2, 10);
+main('111010', 2, 10);
+main('0001', 2, 10); */
+
+// Not binary numbers
+/* main('123', 2, 10);
+main('-100', 2, 10);
+main('a', 2, 10);
+main('', 2, 10); */
+
+// Wrong input or/and output number system(s)
+/* main('110011101', 8, 10);
+main('1011110', 2, 16);
+main('111010101011', 10, 2); */
